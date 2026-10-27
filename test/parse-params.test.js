@@ -165,6 +165,11 @@ test('parse-params', async t => {
       source: 'form-data; name="hello"; filename="unterminated',
       expected: ['form-data', ['name', 'hello'], ['filename', 'unterminated']],
       what: 'Fast path falls back when filename is unterminated'
+    },
+    {
+      source: 'form-data; name="hello"; filename="world.png"; filename*=utf-8\'\'%E2%82%AC.png',
+      expected: ['form-data', ['name', 'hello'], ['filename', 'world.png'], ['filename', '€.png']],
+      what: 'Fast path falls back when parameters follow filename'
     }
   ]
 

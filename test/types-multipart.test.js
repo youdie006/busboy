@@ -460,6 +460,23 @@ const tests = [
   },
   {
     source: [
+      ['-----------------------------paZqsnEHRufoShdX6fh0lUhXBP4k',
+        'Content-Disposition: form-data; name="file"; filename="name.txt"; filename*=utf-8\'\'n%C3%A4me.txt',
+        'Content-Type: application/octet-stream',
+        '',
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        '-----------------------------paZqsnEHRufoShdX6fh0lUhXBP4k--'
+      ].join('\r\n')
+    ],
+    boundary: '---------------------------paZqsnEHRufoShdX6fh0lUhXBP4k',
+    expected: [
+      ['file', 'file', 26, 0, 'näme.txt', '7bit', 'application/octet-stream']
+    ],
+    what: 'Unicode filenames with a plain filename fallback',
+    plan: 6
+  },
+  {
+    source: [
       ['--asdasdasdasd\r\n',
         'Content-Type: text/plain\r\n',
         'Content-Disposition: form-data; name="foo"\r\n',
